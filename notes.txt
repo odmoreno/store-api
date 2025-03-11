@@ -1,0 +1,6 @@
+python -m venv .venv:
+python: Llama al intérprete de Python.
+-m venv: Le indica a Python que ejecute el módulo venv, que es responsable de crear entornos virtuales.
+.venv: Es el nombre del directorio que se va a crear para el entorno virtual. El punto al principio del nombre (.venv) es una convención para indicar que es una carpeta oculta (aunque no lo es en Windows, es simplemente para mantenerlo "limpio").
+
+pip install -r .\requirements.txt
