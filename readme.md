@@ -1,16 +1,23 @@
-## Activar VEnv
+# SetUp
+## Create a virtual environment
 
 ```
+python3.10 -m venv .venv
 source .venv/bin/activate
 ```
 
-## Iniciar proyecto
+## Install requirements
+```
+pip install -r requirements.txt
+```
+
+## Init proyect
 
 ```
 flask run
 ```
 
-### Intrucciones para docker
+### Docker instructions
 
 ```
 docker build -t <nombre> .
