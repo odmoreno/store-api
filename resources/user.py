@@ -39,11 +39,20 @@ class UserLogin(MethodView):
         ).first()
 
         if user and pbkdf2_sha256.verify(user_data["password"], user.password):
-            access_token = create_access_token(identity=str(user.id))
-            return {"access_token": access_token}, 200
+            access_token = create_access_token(identity=str(user.id), fresh=True)
+            refresh_token= create_access_token(user.id)
+            return {"access_token": access_token, "refresh_token": refresh_token}, 200
 
         abort(401, message="Invalid credentials.")
-        
+
+@blp.route("/logout")
+class UserLogout(MethodView):
+    @jwt_required()
+    def post(self):
+        jti = get_jwt()["jti"]
+        BLOCKLIST.add(jti)
+        return {"message": "Successfully logged out"}, 200
+    
 @blp.route("/user/<int:user_id>")
 class User(MethodView):
     """
@@ -63,12 +72,3 @@ class User(MethodView):
         db.session.delete(user)
         db.session.commit()
         return {"message": "User deleted."}, 200
-    
-        
-@blp.route("/logout")
-class UserLogout(MethodView):
-    @jwt_required()
-    def post(self):
-        jti = get_jwt()["jti"]
-        BLOCKLIST.add(jti)
-        return {"message": "Successfully logged out"}, 200
