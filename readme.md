@@ -4,6 +4,7 @@
 ```
 python3.10 -m venv .venv
 source .venv/bin/activate
+ .venv\Scripts\activate
 ```
 
 ## Install requirements

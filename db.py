@@ -1,5 +1,3 @@
-### Database ###
-# This file is used to store the database of the application.   
+from flask_sqlalchemy import SQLAlchemy
 
-stores = {}
-items = {}
+db = SQLAlchemy()
