@@ -3,6 +3,7 @@ import secrets
 
 from flask import Flask, jsonify
 from flask_smorest import Api
+from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 
 from db import db
@@ -29,6 +30,7 @@ def create_app(db_url=None):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     
     db.init_app(app)
+    migrate = Migrate(app, db)
     api = Api(app)
 
     app.config["JWT_SECRET_KEY"] =  "jose" #secrets.SystemRandom().gettrandbits(128) 
@@ -93,13 +95,6 @@ def create_app(db_url=None):
             ),
             401,
         )
-
-    with app.app_context():
-        try:
-            db.create_all()
-            print("Database tables created successfully!")
-        except Exception as e:
-            print(f"Error creating tables: {e}")
 
     api.register_blueprint(ItemBlueprint)
     api.register_blueprint(StoreBlueprint)
