@@ -23,4 +23,5 @@ flask run
 ```
 docker build -t <nombre> .
 docker run -dp 5005:5000 -w /app -v "$(Get-Location):/app" odmoreno/flask-api
+docker run -dp 5005:5000 -w /app -v "$(Get-Location):/app" odmoreno/flask-api sh -c "flask run"
 ```
